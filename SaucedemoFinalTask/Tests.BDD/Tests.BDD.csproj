@@ -12,6 +12,7 @@
     <PackageReference Include="Reqnroll.MsTest" Version="2.2.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.4.3" />
     <PackageReference Include="MSTest.TestFramework" Version="3.4.3" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.33.0" />
   </ItemGroup>
 
   <ItemGroup>

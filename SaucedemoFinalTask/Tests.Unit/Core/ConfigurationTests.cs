@@ -26,7 +26,7 @@ namespace Tests.Unit.Core
         [TestMethod]
         public void Configuration_Loads_Values_From_InMemory_Configuration()
         {
-            var settings = new Dictionary<string, string>
+            var settings = new Dictionary<string, string?>
             {
                 { "BrowserType", "Firefox" },
                 { "AppUrl", "http://localhost" },
