@@ -21,6 +21,14 @@ public class LoginPage(WebDriverWrapper driver)
         _driver.FindElement(_passwordField).SendKeys(password);
     }
 
+    public void ClearPasswordInput()
+    {
+        var passwordInput = _driver.FindElement(_passwordField);
+
+        passwordInput.SendKeys(Keys.Control + "a");
+        passwordInput.SendKeys(Keys.Delete);
+    }
+
     public void ClickLoginButton()
     {
         _driver.FindElement(_loginButton).Click();

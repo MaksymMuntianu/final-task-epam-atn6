@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 namespace PageObjects;
 
-internal class InventoryPage(WebDriverWrapper driver)
+public class InventoryPage(WebDriverWrapper driver)
 {
     private readonly By _appLogo = By.XPath("//div[@class='app_logo']");
     private readonly WebDriverWrapper _driver = driver ?? throw new ArgumentNullException(nameof(driver));

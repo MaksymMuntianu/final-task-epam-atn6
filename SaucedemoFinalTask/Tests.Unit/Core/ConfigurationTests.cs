@@ -1,46 +1,46 @@
 ﻿using Core;
-using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 
+namespace Tests.Unit.Core;
 
-namespace Tests.Unit.Core
+[TestClass]
+public sealed class ConfigurationTests
 {
-    [TestClass]
-    public sealed class ConfigurationTests
+    [TestMethod]
+    public void Constructor_WhenKeysMissing_InitializesDefaultValues()
     {
-        [TestMethod]
-        public void Configuration_Returns_Default_Values_When_Keys_Missing()
+        // Arrange
+        var inMemoryConfig = new ConfigurationBuilder()
+            .AddInMemoryCollection()
+            .Build();
+
+        // Act
+        var config = new Configuration(inMemoryConfig);
+
+        // Assert
+        config.BrowserType.Should().Be("Chrome");
+        config.AppUrl.Should().Be("https://www.saucedemo.com/");
+    }
+
+    [TestMethod]
+    public void Constructor_WithInMemoryConfiguration_InitializesPropertiesFromValues()
+    {
+        // Arrange
+        var settings = new Dictionary<string, string?>
         {
-            var inMemoryConfig = new ConfigurationBuilder()
-                .AddInMemoryCollection()
-                .Build();
-            var config = new Configuration(inMemoryConfig);
-            
-            config.BrowserType.Should().Be("Chrome");
-            config.AppUrl.Should().Be(string.Empty);
-            config.TestDataPath.Should().Be(string.Empty);
-        }
+            { "BrowserType", "Firefox" },
+            { "AppUrl", "http://localhost" }
+        };
+        var inMemoryConfig = new ConfigurationBuilder()
+            .AddInMemoryCollection(settings)
+            .Build();
 
-        [TestMethod]
-        public void Configuration_Loads_Values_From_InMemory_Configuration()
-        {
-            var settings = new Dictionary<string, string?>
-            {
-                { "BrowserType", "Firefox" },
-                { "AppUrl", "http://localhost" },
-                { "TestDataPath", "/data/test" }
-            };
-            var inMemoryConfig = new ConfigurationBuilder()
-                .AddInMemoryCollection(settings)
-                .Build();
-            var config = new Configuration(inMemoryConfig);
+        // Act
+        var config = new Configuration(inMemoryConfig);
 
-            config.BrowserType.Should().Be("Firefox");
-            config.AppUrl.Should().Be("http://localhost");
-            config.TestDataPath.Should().Be("/data/test");
-        }
-
+        // Assert
+        config.BrowserType.Should().Be("Firefox");
+        config.AppUrl.Should().Be("http://localhost");
     }
 }

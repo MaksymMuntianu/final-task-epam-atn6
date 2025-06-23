@@ -1,13 +1,12 @@
 ﻿using Core.WebDriver.Factories;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V135.DOM;
 
 namespace Core.WebDriver
 {
     public class WebDriverWrapper : IDisposable
     {
         private readonly IWebDriver _driver;
-
-        private const int WaitTimeInSeconds = 10;
 
         private bool _disposed;
 
@@ -34,6 +33,17 @@ namespace Core.WebDriver
             {
                 throw new NoSuchElementException($"Element not found: {by}");
             }
+        }
+
+        public void MaximizeAndSetWaits(TimeSpan implicitWaitTime)
+        {
+            _driver.Manage().Window.Maximize();
+            _driver.Manage().Timeouts().ImplicitWait = implicitWaitTime;
+        }
+
+        public void NavigateTo(string url)
+        {
+            _driver.Navigate().GoToUrl(url);
         }
 
         public void Dispose()
