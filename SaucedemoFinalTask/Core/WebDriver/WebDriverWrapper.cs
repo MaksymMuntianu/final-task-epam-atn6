@@ -1,12 +1,10 @@
 ﻿using Core.WebDriver.Factories;
 using OpenQA.Selenium;
 
-namespace Core.WebDriver.WebDriverWrapper 
+namespace Core.WebDriver
 {
-    public partial class WebDriverWrapper : IDisposable
+    public class WebDriverWrapper : IDisposable
     {
-        private readonly TimeSpan _timeout;
-
         private readonly IWebDriver _driver;
 
         private const int WaitTimeInSeconds = 10;
@@ -19,12 +17,23 @@ namespace Core.WebDriver.WebDriverWrapper
         private WebDriverWrapper(BrowserType browserType)
         {
             _driver = FactoryProvider.GetFactory(browserType).CreateWebDriver();
-            _timeout = TimeSpan.FromSeconds(WaitTimeInSeconds);
         }
 
         public static WebDriverWrapper GetInstance(BrowserType browserType)
         {
             return Instance.Value ?? (Instance.Value = new WebDriverWrapper(browserType));
+        }
+
+        public IWebElement FindElement(By by)
+        {
+            try
+            {
+                return _driver.FindElement(by);
+            }
+            catch (NoSuchElementException)
+            {
+                throw new NoSuchElementException($"Element not found: {by}");
+            }
         }
 
         public void Dispose()
