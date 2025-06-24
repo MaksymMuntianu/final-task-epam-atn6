@@ -1,5 +1,9 @@
 ﻿namespace Core.Loggers;
 
+/// <summary>
+/// Serves as a base class for implementing decorators that extend or modify the behavior of an <see cref="ILoggerAdapter"/>.
+/// </summary>
+/// <param name="innerLogger">The inner logger to be decorated.</param>
 public abstract class LoggerDecorator(ILoggerAdapter innerLogger) : ILoggerAdapter
 {
     protected readonly ILoggerAdapter InnerLogger = innerLogger;
