@@ -1,6 +1,6 @@
 using FluentAssertions;
 
-namespace Tests.Unit;
+namespace Tests.UI;
 
 [TestClass]
 public static class AssemblySetup

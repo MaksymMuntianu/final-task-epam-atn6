@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
+
 namespace Core;
 
 public class Configuration(IConfiguration configuration)
@@ -12,6 +13,6 @@ public class Configuration(IConfiguration configuration)
     }
 
     public string BrowserType { get; } = configuration["BrowserType"] ?? "Chrome";
-
+    public string LoggerType { get; } = configuration["LoggerType"] ?? "NLog";
     public string AppUrl { get; } = configuration["AppUrl"] ?? "https://www.saucedemo.com/";
 }
