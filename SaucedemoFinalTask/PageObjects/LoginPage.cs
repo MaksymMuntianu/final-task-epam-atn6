@@ -34,8 +34,5 @@ public class LoginPage(WebDriverWrapper driver)
         _driver.FindElement(_loginButton).Click();
     }
 
-    public string GetErrorMessage()
-    {
-        return _driver.FindElement(_errorMessage).Text;
-    }
+    public string GetErrorMessage() => _driver.FindElement(_errorMessage).Text;
 }

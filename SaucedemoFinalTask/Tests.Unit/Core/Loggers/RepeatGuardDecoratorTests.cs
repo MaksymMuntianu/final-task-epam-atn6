@@ -6,7 +6,6 @@ namespace Tests.Unit;
 [TestClass]
 public class RepeatGuardDecoratorTests
 {
-
     [TestMethod]
     public void Info_WhenMessageIsUnique_LogsMessage()
     {

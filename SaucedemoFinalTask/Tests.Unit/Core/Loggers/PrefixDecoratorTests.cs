@@ -53,7 +53,8 @@ public class PrefixDecoratorTests
         decorator.Info("Information");
 
         // Assert
-        mockLogger.Verify(l => l.Info("Information"), Times.Once(), "Prefix should not affect the log message when it is just whitespace.");
+        mockLogger.Verify(l => l.Info("Information"), Times.Once(),
+            "Prefix should not affect the log message when it is just whitespace.");
     }
 
     [TestMethod]
@@ -67,7 +68,8 @@ public class PrefixDecoratorTests
         decorator.Warn("Information");
 
         // Assert
-        mockLogger.Verify(l => l.Warn("Information"), Times.Once(), "Prefix should not affect the log message when it is an string.Empty.");
+        mockLogger.Verify(l => l.Warn("Information"), Times.Once(),
+            "Prefix should not affect the log message when it is an string.Empty.");
     }
 
     [TestMethod]
@@ -81,7 +83,8 @@ public class PrefixDecoratorTests
         decorator.Debug("Information");
 
         // Assert
-        mockLogger.Verify(l => l.Debug("Information"), Times.Once(), "Prefix should not affect the log message when it is null.");
+        mockLogger.Verify(l => l.Debug("Information"), Times.Once(),
+            "Prefix should not affect the log message when it is null.");
     }
 
     [TestMethod]
@@ -95,6 +98,7 @@ public class PrefixDecoratorTests
         decorator.Error(null!);
 
         // Assert
-        mockLogger.Verify(l => l.Error("Prefix:"), Times.Once(), "If message is null, only the prefix should be logged.");
+        mockLogger.Verify(l => l.Error("Prefix:"), Times.Once(),
+            "If message is null, only the prefix should be logged.");
     }
 }

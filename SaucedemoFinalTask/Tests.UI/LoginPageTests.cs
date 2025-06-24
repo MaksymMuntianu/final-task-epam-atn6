@@ -27,10 +27,8 @@ public sealed class LoginPageTests
             var config = new Configuration();
 
             if (!Enum.TryParse(config.LoggerType, true, out _loggerType))
-            {
                 throw new InvalidOperationException($"Invalid LoggerType: {config.LoggerType}");
-            }
-            
+
             _logger = new LoggerBuilder(_loggerType)
                 .WithPrefix("Login page test:")
                 .WithRepeatGuard()
@@ -38,9 +36,7 @@ public sealed class LoginPageTests
 
             _logger.Info("Getting BrowserType and AppUrl from the configuration");
             if (!Enum.TryParse(config.BrowserType, true, out _browserType))
-            {
                 throw new InvalidOperationException($"Invalid BrowserType: {config.BrowserType}");
-            }
 
             _appUrl = config.AppUrl;
 
