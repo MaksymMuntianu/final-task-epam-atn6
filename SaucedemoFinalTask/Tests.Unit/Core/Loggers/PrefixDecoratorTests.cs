@@ -11,7 +11,7 @@ public class PrefixDecoratorTests
     [DataRow(nameof(ILoggerAdapter.Warn))]
     [DataRow(nameof(ILoggerAdapter.Error))]
     [DataRow(nameof(ILoggerAdapter.Debug))]
-    public void PrefixDecorator_WhenLoggingAtAnyLevel_AddsPrefixToLogMessage(string methodName)
+    public void AllLogs_WhenLoggingAtAnyLevel_AddsPrefixToLogMessage(string methodName)
     {
         // Arrange
         var mockLogger = new Mock<ILoggerAdapter>();
@@ -42,7 +42,8 @@ public class PrefixDecoratorTests
         }
     }
 
-    public static void PrefixDecorator_PrefixWhitespace_PrefixTrimmed()
+    [TestMethod]
+    public void Info_PrefixWhitespace_PrefixTrimmed()
     {
         // Arrange
         var mockLogger = new Mock<ILoggerAdapter>();
@@ -56,44 +57,44 @@ public class PrefixDecoratorTests
     }
 
     [TestMethod]
-    public void PrefixDecorator_PrefixEmptyString_PrefixTrimmed()
+    public void Warn_PrefixEmptyString_PrefixTrimmed()
     {
         // Arrange
         var mockLogger = new Mock<ILoggerAdapter>();
         var decorator = new PrefixDecorator(mockLogger.Object, string.Empty);
 
         // Act
-        decorator.Info("Information");
+        decorator.Warn("Information");
 
         // Assert
-        mockLogger.Verify(l => l.Info("Information"), Times.Once(), "Prefix should not affect the log message when it is an string.Empty.");
+        mockLogger.Verify(l => l.Warn("Information"), Times.Once(), "Prefix should not affect the log message when it is an string.Empty.");
     }
 
     [TestMethod]
-    public void PrefixDecorator_PrefixNull_PrefixTrimmed()
+    public void Debug_PrefixNull_PrefixTrimmed()
     {
         // Arrange
         var mockLogger = new Mock<ILoggerAdapter>();
         var decorator = new PrefixDecorator(mockLogger.Object, null!);
 
         // Act
-        decorator.Info("Information");
+        decorator.Debug("Information");
 
         // Assert
-        mockLogger.Verify(l => l.Info("Information"), Times.Once(), "Prefix should not affect the log message when it is null.");
+        mockLogger.Verify(l => l.Debug("Information"), Times.Once(), "Prefix should not affect the log message when it is null.");
     }
 
     [TestMethod]
-    public void PrefixDecorator_MessageNull_OnlyPrefix()
+    public void Error_MessageNull_OnlyPrefix()
     {
         // Arrange
         var mockLogger = new Mock<ILoggerAdapter>();
         var decorator = new PrefixDecorator(mockLogger.Object, "Prefix: ");
 
         // Act
-        decorator.Info(null!);
+        decorator.Error(null!);
 
         // Assert
-        mockLogger.Verify(l => l.Info("Prefix:"), Times.Once(), "If message is null, only the prefix should be logged.");
+        mockLogger.Verify(l => l.Error("Prefix:"), Times.Once(), "If message is null, only the prefix should be logged.");
     }
 }
