@@ -29,6 +29,14 @@ public class LoginPage(WebDriverWrapper driver)
         passwordInput.SendKeys(Keys.Delete);
     }
 
+    public void ClearUsernameInput()
+    {
+        var usernameInput = _driver.FindElement(_usernameField);
+
+        usernameInput.SendKeys(Keys.Control + "a");
+        usernameInput.SendKeys(Keys.Delete);
+    }
+
     public void ClickLoginButton()
     {
         _driver.FindElement(_loginButton).Click();

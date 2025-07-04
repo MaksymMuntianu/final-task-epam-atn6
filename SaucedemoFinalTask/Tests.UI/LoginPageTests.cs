@@ -15,7 +15,6 @@ public sealed class LoginPageTests
     private static ILoggerAdapter? _logger;
     private WebDriverWrapper? _driver;
     private string? _testName;
-
     public TestContext? TestContext { get; set; }
 
 
@@ -54,7 +53,7 @@ public sealed class LoginPageTests
     [TestInitialize]
     public void Setup()
     {
-        _testName = TestContext?.TestName ?? "UnknowTest";
+        _testName = TestContext?.TestName ?? "UnknownTest";
 
         try
         {
@@ -85,8 +84,10 @@ public sealed class LoginPageTests
 
             // Act
             _logger.Debug($"Submitting empty credentials {_testName}");
-            loginPage.EnterUsername(string.Empty);
-            loginPage.EnterPassword(string.Empty);
+            loginPage.EnterUsername("standard_user");
+            loginPage.EnterPassword("secret_sauce");
+            loginPage.ClearUsernameInput();
+            loginPage.ClearPasswordInput();
             loginPage.ClickLoginButton();
 
             // Assert
